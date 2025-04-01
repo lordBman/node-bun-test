@@ -7,5 +7,6 @@ db.serialize(() => {
   const stmt = db.prepare('INSERT INTO users VALUES (?, ?)');
   for (let i = 0; i < 10_000; i++) stmt.run(i, `User-${i}`);
   stmt.finalize();
+  db.run("DROP TABLE users")
   console.timeEnd('Node.js SQLite');
 });

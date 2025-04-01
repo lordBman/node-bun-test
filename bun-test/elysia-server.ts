@@ -1,15 +1,9 @@
-import { Elysia, file } from 'elysia'
+import { Elysia } from 'elysia'
 
 new Elysia()
-	.get('/', 'LIMBUS COMPANY!!')
-	.get('/said', file('don-quixote.gif'))
-	.get('/stream', function* () {
-		while(true)
-			yield 'LIMBUS COMPANY!!'
+	.get('/:id', (req)=>{
+		req.params.id
 	})
-	.ws('/realtime', {
-		message(ws, message) {
-			ws.send('This is truly ideal')
-		}
-	})
-	.listen(3000)
+	.get('/*', ()=>{
+
+	}).listen(3000)
