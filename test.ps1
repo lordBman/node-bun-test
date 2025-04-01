@@ -27,12 +27,24 @@ cd .\node-test
 Write-Host "\nNodeJS server tests"
 node index.js &  # Run server in background
 autocannon http://localhost:3000/users/nobel -d 10 -c 100  # 10 sec, 100 concurrent connections
-pkill -f "node server-node.js"  # Kill Node server
+$processes = Get-Process node | Where-Object { $_.CommandLine -like "*index.js*" }
+if ($processes) {
+    $processes | Stop-Process -Force
+    Write-Host "Killed Node.js server process(es)."
+} else {
+    Write-Host "No matching Node.js process found."
+}
 
 Write-Host "\nNodeJS server with Express tests"
 node run express-server.js &  # Run express server with NodeJS
 autocannon http://localhost:3000/users/nobel -d 10 -c 100
-pkill -f "node run express-server.js"
+$processes = Get-Process node | Where-Object { $_.CommandLine -like "*express-server.js*" }
+if ($processes) {
+    $processes | Stop-Process -Force
+    Write-Host "Killed Node.js server process(es)."
+} else {
+    Write-Host "No matching Node.js process found."
+}
 
 #Benchmark NodeJS files
 Write-Host "\nNodeJS files tests"
@@ -50,17 +62,35 @@ cd ..\bun-test
 Write-Host "\nBun server tests"
 bun run index.ts &  # Run Bun server
 autocannon http://localhost:3000 -d 10 -c 100
-pkill -f "bun run index.ts"
+$processes = Get-Process bun | Where-Object { $_.CommandLine -like "*index.ts*" }
+if ($processes) {
+    $processes | Stop-Process -Force
+    Write-Host "Killed Bun server process(es)."
+} else {
+    Write-Host "No matching Bun process found."
+}
 
 Write-Host "\nBun server with Express tests"
 bun run express-server.ts &  # Run express server with Bun
 autocannon http://localhost:3000 -d 10 -c 100
-pkill -f "bun run express-server.ts"
+$processes = Get-Process bun | Where-Object { $_.CommandLine -like "*express-server.ts*" }
+if ($processes) {
+    $processes | Stop-Process -Force
+    Write-Host "Killed Bun express server process(es)."
+} else {
+    Write-Host "No matching Bun express process found."
+}
 
 Write-Host "\nBun server with Elysia tests"
 bun run elysia-server.ts &  # Run elysia server with Bun
 autocannon http://localhost:3000 -d 10 -c 100
-pkill -f "bun run elysia-server.ts"
+$processes = Get-Process bun | Where-Object { $_.CommandLine -like "*elysia-server.ts*" }
+if ($processes) {
+    $processes | Stop-Process -Force
+    Write-Host "Killed Bun Elysia server process(es)."
+} else {
+    Write-Host "No matching Bun Elysia process found."
+}
 
 #Benchmark Bun files
 Write-Host "\nBun files tests"
