@@ -21,7 +21,7 @@ npm install -g autocannon
 
 
 #navigate into the node-test subfolder
-cd .\node-test
+Set-Location .\node-test
 
 #Benchmark NodeJS server
 Write-Host "\nNodeJS server tests"
@@ -56,7 +56,7 @@ node run node-sqlite.ts
 
 
 #navigate into the bun-test subfolder
-cd ..\bun-test
+Set-Location ..\bun-test
 
 #Benchmark Bun server
 Write-Host "\nBun server tests"
