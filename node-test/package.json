@@ -1,0 +1,16 @@
+{
+  "name": "node-test",
+  "version": "1.0.0",
+  "description": "testng the speed of NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "dev"
+  },
+  "author": "Nobel Okelekele",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "node-test": "file:",
+    "sqlite3": "^5.1.7"
+  }
+}

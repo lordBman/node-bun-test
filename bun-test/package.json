@@ -1,0 +1,17 @@
+{
+  "name": "bun-test",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.1",
+    "bun-test": "file:",
+    "elysia": "^1.2.25",
+    "express": "^5.1.0"
+  }
+}
