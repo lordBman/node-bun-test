@@ -1,7 +1,7 @@
 const fs = require('fs/promises');
 
 async function readFiles() {
-    for (let i = 0; i < 10_000; i++) {
+    for (let i = 1; i <= 10_000; i++) {
         await fs.readFile(`../test-files/file-${i}.txt`, 'utf8');
     }
 }

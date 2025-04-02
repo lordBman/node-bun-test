@@ -1,9 +1,8 @@
 import { Elysia } from 'elysia'
 
-new Elysia()
-	.get('/:id', (req)=>{
-		req.params.id
-	})
-	.get('/*', ()=>{
-
-	}).listen(3000)
+const elysia = new Elysia()
+	.get('/users/:id', (req)=> `Hello ${req.params.id} from Bun with elysia!`)
+	.get('/*', ()=> "Not Found");
+    
+elysia.listen(3000);
+console.log(`Server running on port: ${elysia.server?.port}`);
