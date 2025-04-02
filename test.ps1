@@ -19,6 +19,7 @@ autocannon -d 10 -c 100 http://localhost:3000/users/nobel   # 10 sec, 100 concur
 $node_server_job = Get-Job -Name "Node_Server_Job"
 if ($node_server_job) {
     Stop-Job $node_server_job
+    Remove-Job $node_server_job
     Write-Host "Killed Node.js server process(es)."
 } else {
     Write-Host "No matching Node.js process found."
@@ -31,6 +32,7 @@ autocannon -d 10 -c 100 http://localhost:3000/users/nobel
 $node_express_server_job = Get-Job -Name "Node_Express_Server_Job"
 if ($node_express_server_job) {
     Stop-Job $node_express_server_job
+    Remove-Job $node_express_server_job
     Write-Host "Killed Node.js express server process(es)."
 } else {
     Write-Host "No matching Node.js express process found."
@@ -49,36 +51,39 @@ Set-Location ..\bun-test
 
 #Benchmark Bun server
 Write-Host "Bun server tests"
-Start-Job -Name "Bun_Server_Job" -ScriptBlock { bun .\index.ts } # Run Bun server in the background
+Start-Job -Name "Bun_Server_Job" -ScriptBlock { bun index.ts } # Run Bun server in the background
 Start-Sleep -Milliseconds 3000
 autocannon -d 10 -c 100 http://localhost:3000/users/nobel 
 $bun_server_job = Get-Job -Name "Bun_Server_Job"
 if ($bun_server_job) {
     Stop-Job $bun_server_job
+    Remove-Job $bun_server_job
     Write-Host "Killed Bun server process(es)."
 } else {
     Write-Host "No matching Bun process found."
 }
 
 Write-Host "Bun server with Express tests"
-Start-Job -Name "Bun_Express_Server_Job" -ScriptBlock { bun .\express-server.ts } # Run express server with Bun in the background
+Start-Job -Name "Bun_Express_Server_Job" -ScriptBlock { bun express-server.ts } # Run express server with Bun in the background
 Start-Sleep -Milliseconds 3000
 autocannon -d 10 -c 100 http://localhost:3000/users/nobel
 $bun_express_server_job = Get-Job -Name "Bun_Express_Server_Job"
 if ($bun_express_server_job) {
     Stop-Job $bun_express_server_job
+    Remove-Job $bun_express_server_job
     Write-Host "Killed Bun express server process(es)."
 } else {
     Write-Host "No matching Bun express process found."
 }
 
 Write-Host "Bun server with Elysia tests"
-Start-Job -Name "Bun_Eylsia_Server_Job" -ScriptBlock { bun .\elysia-server.ts } # Run elysia server with Bun in the background
+Start-Job -Name "Bun_Eylsia_Server_Job" -ScriptBlock { bun elysia-server.ts } # Run elysia server with Bun in the background
 Start-Sleep -Milliseconds 3000
 autocannon -d 10 -c 100 http://localhost:3000/users/nobel  
 $bun_elysia_server_job = Get-Job -Name "Bun_Eylsia_Server_Job"
 if ($bun_elysia_server_job) {
     Stop-Job $bun_elysia_server_job
+    Remove-Job $bun_elysia_server_job
     Write-Host "Killed Bun Elysia server process(es)."
 } else {
     Write-Host "No matching Bun Elysia process found."
